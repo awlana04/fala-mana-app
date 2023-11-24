@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
-import Logo from '../../public/logo.svg'
+import Logo from '../../public/logo.svg';
 
 export default function Home() {
   return (
@@ -26,5 +26,5 @@ export default function Home() {
         </Link>
       </div>
     </body>
-  )
+  );
 }
