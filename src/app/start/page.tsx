@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FiChevronLeft, FiChevronRight, FiCircle } from 'react-icons/fi';
 
 import feminismo from '../../../public/feminismo.jpg';
 import feminismo2 from '../../../public/feminismo2.jpeg';
@@ -31,12 +32,12 @@ export default function Start() {
     },
     {
       title: 'Tipos de Violência',
-      image: [{ src: violencia, alt: 'Violência', width: 500, height: 400 }],
+      image: [{ src: violencia, alt: 'Violência', width: 600, height: 500 }],
       text: 'Estão previstos cinco tipos de violência doméstica e familiar contra a mulher na Lei Maria da Penha: física, psicológica, moral, sexual e patrimonial − Capítulo II, art. 7º, incisos I, II, III, IV e V.',
     },
     {
       title: 'Lei Maria da Penha',
-      image: [{ src: penha, alt: 'penha', width: 500, height: 400 }],
+      image: [{ src: penha, alt: 'penha', width: 600, height: 500 }],
       text: 'A Lei Maria da Penha também teve uma importante vitória em fevereiro de 2012, em decisão do STF, quando foi estabelecido que qualquer pessoa poderia registrar formalmente uma denúncia de violência contra a mulher, e não apenas quem está sob essa violência.',
     },
   ];
@@ -58,16 +59,20 @@ export default function Start() {
     setCurrentIndex(newIndex);
   };
 
+  const goToSlide = (slideIndex: number) => {
+    setCurrentIndex(slideIndex);
+  };
+
   return (
     <div className="w-full p-10 text-white">
-      <div className="min-w-min min-h-min p-6 px-10 bg-slate-600">
-        <div className="flex group">
+      <div className="w-fit h-fit p-6 px-10 bg-slate-600 duration-500">
+        <div className="flex">
           {isFirstSlide ? (
-            <div className="w-6 hidden group-hover:block" />
+            <div className="w-8" />
           ) : (
-            <FaChevronLeft
+            <FiChevronLeft
               onClick={prevSlide}
-              className="w-6 h-6 mt-[10%] cursor-pointer hidden group-hover:block"
+              className="w-8 h-8 mt-[10%] cursor-pointer hover:bg-white hover:text-black rounded-2xl duration-500"
               // className="w-6 h-6 absolute top-[50%] -translate-x-0 -translate-y-[-50%] left-20 cursor-pointer hidden group-hover:block"
             />
           )}
@@ -82,7 +87,7 @@ export default function Start() {
                     width={images.width}
                     height={images.height}
                     alt={slides[currentIndex].title}
-                    className="rounded-2xl"
+                    className="rounded-2xl duration-100000"
                   />
                 );
               })}
@@ -90,17 +95,38 @@ export default function Start() {
           </div>
 
           {isLastSlide ? (
-            <div className="w-6 hidden group-hover:block" />
+            <div className="w-8 h-8 mt-[10%]">
+              <Link href="/">
+                <button className="text-lg hover:underline">Voltar</button>
+              </Link>
+            </div>
           ) : (
-            <FaChevronRight
+            <FiChevronRight
               onClick={nextSlide}
-              className="w-6 h-6 mt-[10%] cursor-pointer hidden group-hover:block"
+              className="w-8 h-8 mt-[10%] cursor-pointer hover:bg-white hover:text-black rounded-2xl duration-500"
               // className="w-6 h-6 absolute top-[50%] -translate-x-0 -translate-y-[-50%] right-20 cursor-pointer hidden group-hover:block"
             />
           )}
         </div>
 
-        <h3 className="mt-6 py-4 text-2xl font-semibold">
+        <div className="p-4 flex justify-center">
+          {slides.map((slide, slideIndex) => {
+            return (
+              <div
+                key={slideIndex}
+                onClick={() => goToSlide(slideIndex)}
+                className="px-1 cursor-pointer"
+              >
+                <FiCircle
+                  className="w-4 h-4"
+                  fill={currentIndex === slideIndex ? '#FFFFFF' : 'none'}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        <h3 className="mt-2 py-4 text-2xl font-semibold">
           {slides[currentIndex].title}
         </h3>
         <p className="text-lg">{slides[currentIndex].text}</p>

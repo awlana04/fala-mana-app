@@ -19,11 +19,6 @@ export default function Home() {
             Começar
           </button>
         </Link>
-        <Link href="/explore">
-          <p className="mt-4 text-lg font-medium hover:text-white hover:underline">
-            Explorar
-          </p>
-        </Link>
       </div>
     </body>
   );
