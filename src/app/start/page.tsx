@@ -64,7 +64,7 @@ export default function Start() {
   };
 
   return (
-    <div className="w-full p-10 text-white">
+    <div className="w-full p-10 text-white" onGotPointerCapture={nextSlide}>
       <div className="w-fit h-fit p-6 px-10 bg-slate-600 duration-500">
         <div className="flex">
           {isFirstSlide ? (
