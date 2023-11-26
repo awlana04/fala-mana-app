@@ -1,9 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
-import { FiChevronLeft, FiChevronRight, FiCircle } from 'react-icons/fi';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, FreeMode } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/free-mode';
 
 import feminismo from '../../../public/feminismo.jpg';
 import feminismo2 from '../../../public/feminismo2.jpeg';
@@ -42,95 +46,49 @@ export default function Start() {
     },
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const isFirstSlide = currentIndex === 0;
-  const isLastSlide = currentIndex === slides.length - 1;
-
-  const prevSlide = () => {
-    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-
-    setCurrentIndex(newIndex);
-  };
-
-  const nextSlide = () => {
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-
-    setCurrentIndex(newIndex);
-  };
-
-  const goToSlide = (slideIndex: number) => {
-    setCurrentIndex(slideIndex);
-  };
-
   return (
-    <div className="w-full p-10 text-white" onGotPointerCapture={nextSlide}>
-      <div className="w-fit h-fit p-6 px-10 bg-slate-600 duration-500">
-        <div className="flex">
-          {isFirstSlide ? (
-            <div className="w-8" />
-          ) : (
-            <FiChevronLeft
-              onClick={prevSlide}
-              className="w-8 h-8 mt-[10%] cursor-pointer hover:bg-white hover:text-black rounded-2xl duration-500"
-              // className="w-6 h-6 absolute top-[50%] -translate-x-0 -translate-y-[-50%] left-20 cursor-pointer hidden group-hover:block"
-            />
-          )}
-
-          <div className="m-auto px-4 flex">
-            <div className="grid grid-flow-col gap-x-6">
-              {slides[currentIndex].image.map((images, index) => {
-                return (
-                  <Image
-                    key={index}
-                    src={images.src}
-                    width={images.width}
-                    height={images.height}
-                    alt={slides[currentIndex].title}
-                    className="rounded-2xl duration-100000"
-                  />
-                );
-              })}
-            </div>
-          </div>
-
-          {isLastSlide ? (
-            <div className="w-8 h-8 mt-[10%]">
-              <Link href="/">
-                <button className="text-lg hover:underline">Voltar</button>
-              </Link>
-            </div>
-          ) : (
-            <FiChevronRight
-              onClick={nextSlide}
-              className="w-8 h-8 mt-[10%] cursor-pointer hover:bg-white hover:text-black rounded-2xl duration-500"
-              // className="w-6 h-6 absolute top-[50%] -translate-x-0 -translate-y-[-50%] right-20 cursor-pointer hidden group-hover:block"
-            />
-          )}
-        </div>
-
-        <div className="p-4 flex justify-center">
-          {slides.map((slide, slideIndex) => {
-            return (
-              <div
-                key={slideIndex}
-                onClick={() => goToSlide(slideIndex)}
-                className="px-1 cursor-pointer"
-              >
-                <FiCircle
-                  className="w-4 h-4"
-                  fill={currentIndex === slideIndex ? '#FFFFFF' : 'none'}
-                />
+    <div className="w-full p-10 text-white">
+      <Swiper
+        breakpoints={{
+          700: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+        }}
+        init={false}
+        navigation={true}
+        freeMode={{ enabled: true, sticky: true, minimumVelocity: 4 }}
+        pagination={{ clickable: true }}
+        modules={[Navigation, Pagination, FreeMode]}
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={slide.title}>
+            <div className="w-fit h-fit p-6 px-10 bg-slate-600 duration-500">
+              <div className="flex">
+                <div className="m-auto px-4 flex">
+                  {slide.image.map((image, index) => (
+                    <div>
+                      <Image
+                        key={image.alt}
+                        src={image.src}
+                        alt={image.alt}
+                        width={image.width}
+                        height={image.height}
+                        className="rounded-2xl px-4"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            );
-          })}
-        </div>
 
-        <h3 className="mt-2 py-4 text-2xl font-semibold">
-          {slides[currentIndex].title}
-        </h3>
-        <p className="text-lg">{slides[currentIndex].text}</p>
-      </div>
+              <h3 className="mt-2 py-4 text-2xl font-semibold">
+                {slide.title}
+              </h3>
+              <p className="text-lg pb-4">{slide.text}</p>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 }
