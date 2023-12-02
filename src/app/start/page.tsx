@@ -1,8 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
 import { PanInfo, motion } from 'framer-motion';
 import { FiChevronLeft, FiChevronRight, FiCircle } from 'react-icons/fi';
 
@@ -19,8 +19,8 @@ export default function Start() {
         {
           src: feminismo,
           alt: 'Feminismo',
-          width: 600,
-          height: 500,
+          width: 500,
+          height: 400,
         },
         {
           src: feminismo2,
@@ -33,16 +33,15 @@ export default function Start() {
     },
     {
       title: 'Tipos de Violência',
-      image: [{ src: violencia, alt: 'Violência', width: 600, height: 500 }],
+      image: [{ src: violencia, alt: 'Violência', width: 500, height: 400 }],
       text: 'Estão previstos cinco tipos de violência doméstica e familiar contra a mulher na Lei Maria da Penha: física, psicológica, moral, sexual e patrimonial − Capítulo II, art. 7º, incisos I, II, III, IV e V.',
     },
     {
       title: 'Lei Maria da Penha',
-      image: [{ src: penha, alt: 'penha', width: 600, height: 500 }],
+      image: [{ src: penha, alt: 'penha', width: 500, height: 400 }],
       text: 'A Lei Maria da Penha também teve uma importante vitória em fevereiro de 2012, em decisão do STF, quando foi estabelecido que qualquer pessoa poderia registrar formalmente uma denúncia de violência contra a mulher, e não apenas quem está sob essa violência.',
     },
   ];
-  const constraintsRef = useRef(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -74,11 +73,8 @@ export default function Start() {
   };
 
   return (
-    <motion.div className="p-10 text-white">
-      <motion.div
-        ref={constraintsRef}
-        className="w-fit h-fit p-6 px-10 bg-red-600 duration-500 overflow-hidden"
-      >
+    <body className="w-full h-full p-16 text-white">
+      <div className="w-fit h-fit p-6 px-12 bg-red-600 duration-500 overflow-hidden rounded-3xl">
         <motion.div
           drag="x"
           dragDirectionLock
@@ -86,21 +82,21 @@ export default function Start() {
           dragMomentum={false}
           dragElastic={0.5}
           dragPropagation={true}
-          onDragStart={swipeSlide}
+          onDragEnd={swipeSlide}
           dragTransition={{ bounceStiffness: 800, bounceDamping: 15 }}
-          className="cursor-grab "
+          className="cursor-grab"
         >
           <motion.div className="flex">
             {isFirstSlide ? (
-              <div className="w-8" />
+              <div />
             ) : (
               <FiChevronLeft
                 onClick={prevSlide}
-                className="w-8 h-8 mt-[10%] cursor-pointer hover:bg-white hover:text-black rounded-2xl duration-500"
+                className="w-12 h-12 mt-[20%] cursor-pointer text-black hover:bg-black hover:text-red-600 rounded-full duration-500"
               />
             )}
 
-            <motion.div className="m-auto px-4 flex">
+            <div className="m-auto px-4 flex">
               <motion.div className="grid grid-flow-col gap-x-6">
                 {slides[currentIndex].image.map((images, index) => {
                   return (
@@ -110,28 +106,35 @@ export default function Start() {
                       width={images.width}
                       height={images.height}
                       alt={slides[currentIndex].title}
-                      className="rounded-2xl duration-1000"
+                      className="rounded-lg duration-1000"
                     />
                   );
                 })}
               </motion.div>
-            </motion.div>
+            </div>
 
             {isLastSlide ? (
-              <motion.div className="w-8 h-8 mt-[10%]">
+              <motion.div className="w-12 h-12 mt-[20%]">
                 <Link href="/">
-                  <button className="text-lg hover:underline">Voltar</button>
+                  <button className="text-black font-medium text-xl hover:underline">
+                    Voltar
+                  </button>
                 </Link>
               </motion.div>
             ) : (
               <FiChevronRight
                 onClick={nextSlide}
-                className="w-8 h-8 mt-[10%] cursor-pointer hover:bg-white hover:text-black rounded-2xl duration-500"
+                className="w-12 h-12 mt-[20%] cursor-pointer text-black hover:bg-black hover:text-red-600 rounded-full duration-500"
               />
             )}
           </motion.div>
 
-          <motion.div className="p-4 flex justify-center">
+          <h3 className="mt-6 py-4 text-2xl font-semibold">
+            {slides[currentIndex].title}
+          </h3>
+          <p className="text-lg">{slides[currentIndex].text}</p>
+
+          <footer className="mt-8 px-4 flex justify-center">
             {slides.map((slide, slideIndex) => {
               return (
                 <motion.div
@@ -140,20 +143,15 @@ export default function Start() {
                   className="px-1 cursor-pointer"
                 >
                   <FiCircle
-                    className="w-4 h-4"
-                    fill={currentIndex === slideIndex ? '#FFFFFF' : 'none'}
+                    className="w-5 h-5 text-black"
+                    fill={currentIndex === slideIndex ? '#000000' : 'none'}
                   />
                 </motion.div>
               );
             })}
-          </motion.div>
-
-          <h3 className="mt-2 py-4 text-2xl font-semibold">
-            {slides[currentIndex].title}
-          </h3>
-          <p className="text-lg">{slides[currentIndex].text}</p>
+          </footer>
         </motion.div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </body>
   );
 }
