@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PanInfo, motion } from 'framer-motion';
+import { PanInfo, delay, motion } from 'framer-motion';
 import { FiChevronLeft, FiChevronRight, FiCircle } from 'react-icons/fi';
 
 import feminismo from '../../../public/background.jpg';
@@ -25,8 +25,8 @@ export default function Start() {
         {
           src: feminismo2,
           alt: 'Feminismo',
-          width: 300,
-          height: 200,
+          width: 250,
+          height: 50,
         },
       ],
       text: 'O caminho entre os direitos das mulheres e as lutas para a igualdade das minorias em geral estiveram sempre entrelaçados. Na época do Brasil Colônia (1500-1822), pouco foi conquistado. Vivia-se uma cultura enraizada de repressão às minorias, desigualdade e de patriarcado. As mulheres eram propriedade de seus pais, maridos, irmãos ou quaisquer que fossem os chefes da família. Nesse período, a luta das mulheres era focada em algumas carências extremamente significativas à época: direito à vida política, educação, direito ao divórcio e livre acesso ao mercado de trabalho.',
@@ -73,8 +73,8 @@ export default function Start() {
   };
 
   return (
-    <body className="w-full h-full p-16 text-white">
-      <div className="w-fit h-fit p-6 px-12 bg-red-600 duration-500 overflow-hidden rounded-3xl">
+    <div className="p-16 max-md:p-3 max-lg:p-4 max-2xl:p-6 text-white">
+      <div className="p-6 max-2xl:p-3 max-lg:p-4 px-12 max-md:px-5 max-lg:px-8 max-2xl:px-8 bg-red-600 duration-500 overflow-hidden rounded-3xl cursor-grab">
         <motion.div
           drag="x"
           dragDirectionLock
@@ -84,9 +84,8 @@ export default function Start() {
           dragPropagation={true}
           onDragEnd={swipeSlide}
           dragTransition={{ bounceStiffness: 800, bounceDamping: 15 }}
-          className="cursor-grab"
         >
-          <motion.div className="flex">
+          <div className="flex">
             {isFirstSlide ? (
               <div />
             ) : (
@@ -96,8 +95,8 @@ export default function Start() {
               />
             )}
 
-            <div className="m-auto px-4 flex">
-              <motion.div className="grid grid-flow-col gap-x-6">
+            <div className="m-auto px-2 flex">
+              <div className="grid grid-flow-col gap-x-6 max-md:gap-x-2">
                 {slides[currentIndex].image.map((images, index) => {
                   return (
                     <Image
@@ -106,38 +105,40 @@ export default function Start() {
                       width={images.width}
                       height={images.height}
                       alt={slides[currentIndex].title}
-                      className="rounded-lg duration-1000"
+                      className="max-sm:w-44 max-2xl:w-80 max-sm:h-28 max-2xl:h-44 rounded-lg pointer-events-none"
                     />
                   );
                 })}
-              </motion.div>
+              </div>
             </div>
 
             {isLastSlide ? (
-              <motion.div className="w-12 h-12 mt-[20%]">
+              <div className="w-12 h-12 mt-[20%]">
                 <Link href="/">
-                  <button className="text-black font-medium text-xl hover:underline">
+                  <button className="text-black font-medium text-xl max-md:text-base max-lg:text-xl hover:underline">
                     Voltar
                   </button>
                 </Link>
-              </motion.div>
+              </div>
             ) : (
               <FiChevronRight
                 onClick={nextSlide}
                 className="w-12 h-12 mt-[20%] cursor-pointer text-black hover:bg-black hover:text-red-600 rounded-full duration-500"
               />
             )}
-          </motion.div>
+          </div>
 
-          <h3 className="mt-6 py-4 text-2xl font-semibold">
+          <h3 className="mt-6 max-md:mt-4 max-2xl:mt-2 py-4 max-md:py-2 text-2xl max-md:text-2xl max-lg:text-4xl font-semibold">
             {slides[currentIndex].title}
           </h3>
-          <p className="text-lg">{slides[currentIndex].text}</p>
+          <p className="text-lg max-md:text-lg max-lg:text-3xl">
+            {slides[currentIndex].text}
+          </p>
 
-          <footer className="mt-8 px-4 flex justify-center">
+          <footer className="mt-8 max-md:mt-2 max-2xl:mt-4 px-4 flex justify-center">
             {slides.map((slide, slideIndex) => {
               return (
-                <motion.div
+                <div
                   key={slideIndex}
                   onClick={() => goToSlide(slideIndex)}
                   className="px-1 cursor-pointer"
@@ -146,12 +147,12 @@ export default function Start() {
                     className="w-5 h-5 text-black"
                     fill={currentIndex === slideIndex ? '#000000' : 'none'}
                   />
-                </motion.div>
+                </div>
               );
             })}
           </footer>
         </motion.div>
       </div>
-    </body>
+    </div>
   );
 }
