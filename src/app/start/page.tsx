@@ -79,11 +79,15 @@ export default function Start() {
 
   const swipeSlide = (event: any, info: PanInfo) => {
     const initialDrag = info.point.x;
-    const finalDrag = info.point.x + info.offset.x;
+    const finalDrag = initialDrag + info.offset.x;
 
-    if (initialDrag > finalDrag) {
+    console.log(info.delta.x);
+
+    if (initialDrag > finalDrag && info.delta.y === 0) {
       nextSlide();
-    } else {
+    }
+
+    if (initialDrag < finalDrag && info.delta.y === 0) {
       prevSlide();
     }
   };
