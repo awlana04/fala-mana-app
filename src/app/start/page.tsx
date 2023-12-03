@@ -94,16 +94,16 @@ export default function Start() {
 
   return (
     <div className="p-10 max-sm:p-3 max-lg:p-4 max-2xl:p-6 text-white">
-      <div className="p-6 max-2xl:p-3 max-lg:p-4 px-12 max-sm:px-5 max-lg:px-8 max-2xl:px-8 bg-red-600 duration-500 overflow-hidden rounded-3xl cursor-grab">
+      <div className="p-6 max-2xl:p-3 max-lg:p-4 px-12 max-sm:px-5 max-lg:px-8 max-2xl:px-8 bg-red-600 duration-500 overflow-hidden rounded-3xl">
         <motion.div
-          drag="x"
-          dragDirectionLock
-          dragConstraints={{ left: 0, right: 0 }}
-          dragMomentum={false}
-          dragElastic={0.5}
-          dragPropagation={true}
-          onDragEnd={swipeSlide}
-          dragTransition={{ bounceStiffness: 800, bounceDamping: 15 }}
+        // drag="x"
+        // dragDirectionLock
+        // dragConstraints={{ left: 0, right: 0 }}
+        // dragMomentum={false}
+        // dragElastic={0.5}
+        // dragPropagation={true}
+        // onDragEnd={swipeSlide}
+        // dragTransition={{ bounceStiffness: 800, bounceDamping: 15 }}
         >
           <div className="flex">
             {isFirstSlide ? (
