@@ -89,8 +89,8 @@ export default function Start() {
   };
 
   return (
-    <div className="p-10 max-md:p-3 max-lg:p-4 max-2xl:p-6 text-white">
-      <div className="p-6 max-2xl:p-3 max-lg:p-4 px-12 max-md:px-5 max-lg:px-8 max-2xl:px-8 bg-red-600 duration-500 overflow-hidden rounded-3xl cursor-grab">
+    <div className="p-10 max-sm:p-3 max-lg:p-4 max-2xl:p-6 text-white">
+      <div className="p-6 max-2xl:p-3 max-lg:p-4 px-12 max-sm:px-5 max-lg:px-8 max-2xl:px-8 bg-red-600 duration-500 overflow-hidden rounded-3xl cursor-grab">
         <motion.div
           drag="x"
           dragDirectionLock
@@ -121,7 +121,7 @@ export default function Start() {
                       width={images.width}
                       height={images.height}
                       alt={slides[currentIndex].title}
-                      className="max-sm:w-44 max-2xl:w-80 max-sm:h-28 max-2xl:h-44 rounded-lg pointer-events-none"
+                      className="opacity-1 max-lg:opacity-0 max-sm:w-44 max-2xl:w-80 max-sm:h-28 max-2xl:h-44 rounded-lg pointer-events-none"
                     />
                   );
                 })}
@@ -148,11 +148,11 @@ export default function Start() {
             {slides[currentIndex].title}
           </h3>
 
-          <p className="text-xl max-md:text-lg max-lg:text-3xl">
+          <p className="text-xl max-lg:text-3xl">
             {parse(slides[currentIndex].text)}
           </p>
 
-          <footer className="mt-5 max-md:mt-2 max-2xl:mt-4 px-4 flex justify-center">
+          <footer className="mt-5 max-sm:mt-2 max-2xl:mt-4 px-4 flex justify-center">
             {slides.map((slide, slideIndex) => {
               return (
                 <div
